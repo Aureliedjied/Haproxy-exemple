@@ -5,13 +5,12 @@ services:
     image: aurelie/haproxy:latest
     ports:
       - "8080:80"
-      - "8443:443"
     environment:
       - DOMAIN_NAME=yourdomain.com
       - EMAIL_ADDRESS=your@email.com
       - BACKEND1_URL=backend1:80
       - BACKEND2_URL=backend2:80
-      - ENABLE_HTTPS=true
+      - ENABLE_HTTPS=false
     depends_on:
       - backend1
       - backend2
@@ -19,14 +18,14 @@ services:
       - backend-network
 
   backend1:
-    image: aurelie/haproxy-demo:latest
+    image: aurelie/haproxy:latest
     environment:
       - BACKEND_NAME=back1
     networks:
       - backend-network
 
   backend2:
-    image: aurelie/haproxy-demo:latest
+    image: aurelie/haproxy:latest
     environment:
       - BACKEND_NAME=back2
     networks:
@@ -35,4 +34,3 @@ services:
 networks:
   backend-network:
     driver: bridge
-

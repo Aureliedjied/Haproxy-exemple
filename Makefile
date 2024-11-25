@@ -1,33 +1,37 @@
 # Définir la version de l'image Docker
+IMAGE_NAME := aurelie/haproxy
 TAG := latest
+CONTAINER_NAME := haproxy-container
 
 # Définir le nom de l'image Docker pour le backend et le load balancer
 DEMO_IMAGE_NAME := aurelie/haproxy-demo
-LOADBALANCER_IMAGE_NAME := aurelie/haproxy
+DEMO_PORT1 := 8080
+DEMO_PORT2 := 8082
 
 # Construire les images Docker
 build:
-	@docker build -t $(DEMO_IMAGE_NAME):$(TAG) ./LoadBalancer
-	@docker build -t $(LOADBALANCER_IMAGE_NAME) ./Demo
+	@docker build -t $(IMAGE_NAME):$(TAG) ./LoadBalancer
+	@docker build -t $(DEMO_IMAGE_NAME) ./Demo
 
-# Pousser les images Docker vers le registre
+# Push the docker image
 push:
-    @docker push $(DEMO_IMAGE_NAME):$(TAG)
-    @docker push $(LOADBALANCER_IMAGE_NAME):$(TAG)
+	@docker push $(IMAGE_NAME):$(TAG)
+	@docker push $(DEMO_IMAGE_NAME):$(TAG)
 
-# Tirer les images Docker depuis le registre
+# Pull the docker image
 pull:
-    @docker pull $(DEMO_IMAGE_NAME):$(TAG)
-    @docker pull $(LOADBALANCER_IMAGE_NAME):$(TAG)
+	@docker pull $(IMAGE_NAME):$(TAG)
+	@docker pull $(DEMO_IMAGE_NAME):$(TAG)
 
-# Lancer l'application en local
+# Run the demo (without https)
 run-local:
 	@make build
 	@docker compose up -d
 
-# Arrêter l'application en local
+# Stop the demo
 stop:
 	@docker compose down
 
+# Default target
 .PHONY: build push pull run-local stop
 

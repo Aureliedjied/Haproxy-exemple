@@ -6,3 +6,4 @@ mv /usr/local/apache2/htdocs/index_temp.html /usr/local/apache2/htdocs/index.htm
 
 # Démarrer Apache en arriere plan
 exec httpd-foreground
+
