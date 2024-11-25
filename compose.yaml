@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  loadbalancer:
+    image: aurelie/haproxy:latest
+    ports:
+      - "8080:80"
+      - "8443:443"
+    environment:
+      - DOMAIN_NAME=yourdomain.com
+      - EMAIL_ADDRESS=your@email.com
+      - BACKEND1_URL=backend1:80
+      - BACKEND2_URL=backend2:80
+      - ENABLE_HTTPS=true
+    depends_on:
+      - backend1
+      - backend2
+    networks:
+      - backend-network
+
+  backend1:
+    image: aurelie/haproxy-demo:latest
+    environment:
+      - BACKEND_NAME=back1
+    networks:
+      - backend-network
+
+  backend2:
+    image: aurelie/haproxy-demo:latest
+    environment:
+      - BACKEND_NAME=back2
+    networks:
+      - backend-network
+
+networks:
+  backend-network:
+    driver: bridge
+
