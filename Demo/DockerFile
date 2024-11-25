@@ -1,20 +1,23 @@
+#Install Apache
 FROM httpd:latest
 
+#Mise à jour et installations des paquets et dépendances
 RUN apt-get update && \
     apt-get install -y gettext-base && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
+#Copie des fichiers dans le conteneur
 COPY index.html /usr/local/apache2/htdocs/index.html
 COPY entrypoint.sh /usr/local/bin/
 
-# Set permissions
-RUN chmod +x /usr/local/bin/entrypoint.sh
+# Set permissions pour rendre le fichier éxécutable
+RUN chmod 700 /usr/local/bin/entrypoint.sh
 
-# Set environment variables
+# Définit la variable d'environnement
 ENV BACKEND_NAME="backend"
 
-# Set entrypoint
+# Set entrypoint : l'image qu'executera docker.
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 
 # Expose port
