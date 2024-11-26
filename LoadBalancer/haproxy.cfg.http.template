@@ -20,3 +20,4 @@ backend http_back
     option redispatch
     server back1 ${BACKEND1_URL} check cookie back1
     server back2 ${BACKEND2_URL} check cookie back2
+

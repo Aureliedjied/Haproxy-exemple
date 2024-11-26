@@ -12,7 +12,7 @@ COPY index.html /usr/local/apache2/htdocs/index.html
 COPY entrypoint.sh /usr/local/bin/
 
 # Set permissions pour rendre le fichier exécutable
-RUN chmod 700 /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 # Définit la variable d'environnement
 ENV BACKEND_NAME="backend"

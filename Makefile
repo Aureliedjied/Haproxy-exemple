@@ -1,14 +1,13 @@
-# Définir la version de l'image Docker
-IMAGE_NAME := aurelie/haproxy
+IMAGE_NAME := aurelie/ha-proxy
 TAG := latest
 CONTAINER_NAME := haproxy-container
 
-# Définir le nom de l'image Docker pour le backend et le load balancer
-DEMO_IMAGE_NAME := aurelie/haproxy-demo
+# Variables for demo
+DEMO_IMAGE_NAME := aurelie/ha-proxy-demo
 DEMO_PORT1 := 8080
 DEMO_PORT2 := 8082
 
-# Construire les images Docker
+# Build the docker image
 build:
 	@docker build -t $(IMAGE_NAME):$(TAG) ./LoadBalancer
 	@docker build -t $(DEMO_IMAGE_NAME) ./Demo
@@ -34,4 +33,3 @@ stop:
 
 # Default target
 .PHONY: build push pull run-local stop
-

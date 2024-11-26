@@ -3,7 +3,7 @@ FROM haproxy:latest
 USER root
 
 RUN apt-get update && \
-    apt-get install -y cerbot gettext-base cron && \
+    apt-get install -y certbot gettext-base cron curl && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
