@@ -13,12 +13,12 @@ defaults
 frontend http_front
     bind *:80
     bind *:443 ssl crt ${DOMAIN_CERT_PATH}
-    redirect scheme https code 301 if !{ ssl_fc }
+    
     default_backend http_back
 
 backend http_back
     balance roundrobin
-    cookie SERVERID insert indirect nocache
     option redispatch
-    server back1 ${BACKEND1_URL} check cookie back1
-    server back2 ${BACKEND2_URL} check cookie back2
+    
+    server back1 ${BACKEND1_URL} check 
+    server back2 ${BACKEND2_URL} check 

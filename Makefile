@@ -1,35 +1,53 @@
-IMAGE_NAME := aurelie/ha-proxy
+# Nom du projet 
+PROJECT_NAME := ha-proxy 
 TAG := latest
-CONTAINER_NAME := haproxy-container
 
-# Variables for demo
-DEMO_IMAGE_NAME := aurelie/ha-proxy-demo
-DEMO_PORT1 := 8080
-DEMO_PORT2 := 8082
+# Variables pour les images Docker 
+IMAGE_NAME := aurelie/ha-proxy 
+DEMO_IMAGE_NAME := aurelie/ha-proxy-demo 
 
-# Build the docker image
-build:
-	@docker build -t $(IMAGE_NAME):$(TAG) ./LoadBalancer
-	@docker build -t $(DEMO_IMAGE_NAME) ./Demo
+# Build les images Docker 
+build: 
+	@echo "Construction des images Docker..." 
+	@docker build -t $(IMAGE_NAME) ./Back 
+	@docker build -t $(DEMO_IMAGE_NAME) ./Front
 
-# Push the docker image
-push:
+# Pousser les images Docker 
+push: 
+	@echo "Push des images Docker ..."
 	@docker push $(IMAGE_NAME):$(TAG)
 	@docker push $(DEMO_IMAGE_NAME):$(TAG)
 
-# Pull the docker image
+# Pull les images docker
 pull:
+	@echo "Pull des images Docker ..."
 	@docker pull $(IMAGE_NAME):$(TAG)
 	@docker pull $(DEMO_IMAGE_NAME):$(TAG)
 
-# Run the demo (without https)
-run-local:
-	@make build
-	@docker compose up -d
+# Démarrer les services en local 
+run-local: build 
+	@echo "Démarrage des services en local..." 
+	@docker-compose up -d
 
-# Stop the demo
+#Afficher les logs de tous les services
+logs:
+	@echo "Affichage des logs..."
+	@docker-compose logs 
+
+#acceder aux ID des conteneur
+id:
+	@echo "Accès aux ids des conteneur..."
+	@docker ps
+
+# Arrêt des service
 stop:
-	@docker compose down
+	@echo "Arrêt des services..."
+	@docker-compose down
+
+# Supprimer les images et les conteneurs
+clean:
+	@echo "Nettoyage des images et des conteneurs..."
+	@docker-compose down --rmi all -v
 
 # Default target
 .PHONY: build push pull run-local stop

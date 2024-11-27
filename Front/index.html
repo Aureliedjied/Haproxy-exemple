@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAProxy Backend</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Hello from Backend: ${BACKEND_NAME}</h1>
+        <p>Bienvenue sur notre serveur backend !</p>
+        <div class="info">
+            <h2>Informations sur le serveur :</h2>
+            <p><strong>Nom du backend :</strong> ${BACKEND_NAME}</p>
+            <p><strong>Adresse IP :</strong> ${BACKEND_IP}</p>
+            <p><strong>Port :</strong> ${BACKEND_PORT}</p>
+            <p><strong>Date et heure :</strong> ${CURRENT_DATETIME}</p>
+        </div>
+    </div>
+</body>
+</html>

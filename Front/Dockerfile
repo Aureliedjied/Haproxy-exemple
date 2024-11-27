@@ -1,4 +1,4 @@
-# Install Apache
+# Image officielle Apache
 FROM httpd:latest
 
 # Mise à jour et installations des paquets et dépendances

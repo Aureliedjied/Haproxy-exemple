@@ -5,12 +5,15 @@ services:
     image: aurelie/ha-proxy:latest
     ports:
       - "8080:80"
+      - "8443:443"
     environment:
       - DOMAIN_NAME=yourdomain.com
       - EMAIL_ADDRESS=your@email.com
       - BACKEND1_URL=backend1:80
       - BACKEND2_URL=backend2:80
-      - ENABLE_HTTPS=false
+      - ENABLE_HTTPS=true
+    volumes: 
+      - /etc/haproxy/certs:/usr/local/etc/haproxy/certs
     depends_on:
       - backend1
       - backend2
